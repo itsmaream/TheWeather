@@ -1,39 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-            x:Class="TheWather.Views.HomeView">
- <StackLayout>  
-     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-
-            <SearchBar Text="{Binding City}" 
-                       SearchCommand="{Binding GetWeatherResponseCommand}" 
-                       FontSize="30"
-                       Grid.Column="0" 
-                       Grid.ColumnSpan="2"
-                       Grid.Row="0"/>
-
-            <Label Text="{Binding Response.Main.Temp_Max}"
-               Grid.Column="0"
-               Grid.Row="1"/>
-            <Label Text="درجة الحراره العظمى"
-               Grid.Column="1"
-               Grid.Row="1"/>
-            <Label Text="{Binding Response.Main.Temp_Min }"
-               Grid.Column="0"
-                Grid.Row="2"/>
-            <Label Text="درجة الحراره الصغرى"
-               Grid.Column="1"
-                Grid.Row="2"/>
-
-        </Grid>  
- </StackLayout>
+<ContentPage
+    x:Class="TheWather.Views.HomeView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="{Binding Title}"
+    mc:Ignorable="d">
+    <StackLayout Padding="8" Spacing="8">
+        <SearchBar
+            FontSize="Large"
+            SearchCommand="{Binding GetWeatherResponseCommand}"
+            Text="{Binding City}" />
+        <!--  activity indicator to let the user know that we are loading and processing data  -->
+        <ActivityIndicator
+            HeightRequest="32"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}" />
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span FontSize="Medium" Text="درجة الحرارة الحالية: " />
+                    <Span
+                        FontAttributes="Bold"
+                        FontSize="Medium"
+                        Text="{Binding Response.Main.Temp}"
+                        TextColor="Black" />
+                    <!--  this (&#xa;) is the hex code to have a newline  -->
+                    <Span Text="&#xa;" />
+                    <Span FontSize="Medium" Text="درجة الحرارة الصغرى: " />
+                    <Span
+                        FontAttributes="Bold"
+                        FontSize="Medium"
+                        Text="{Binding Response.Main.Temp_Min}"
+                        TextColor="Black" />
+                    <Span Text="&#xa;" />
+                    <Span FontSize="Medium" Text="درجة الحرارة العظمى: " />
+                    <Span
+                        FontAttributes="Bold"
+                        FontSize="Medium"
+                        Text="{Binding Response.Main.Temp_Max}"
+                        TextColor="Black" />
+                    <Span Text="&#xa;" />
+                    <Span FontSize="Medium" Text="الرطوبة: " />
+                    <Span
+                        FontAttributes="Bold"
+                        FontSize="Medium"
+                        Text="{Binding Response.Main.Humidity}"
+                        TextColor="Black" />
+                    <Span Text="&#xa;" />
+                    <Span FontSize="Medium" Text="الضغط الجوي: " />
+                    <Span
+                        FontAttributes="Bold"
+                        FontSize="Medium"
+                        Text="{Binding Response.Main.Pressure}"
+                        TextColor="Black" />
+                    <Span Text="&#xa;" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </StackLayout>
 </ContentPage>
